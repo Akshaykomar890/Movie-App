@@ -1,3 +1,5 @@
+
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -21,6 +23,13 @@ android {
             useSupportLibrary = true
         }
     }
+    bundle {
+        density {
+            enableSplit = true
+
+        }
+    }
+
 
     buildTypes {
         release {
@@ -49,6 +58,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
@@ -75,17 +85,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
 
-    // Room
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.0")
-    implementation("androidx.room:room-paging:2.6.0")
-
-    // Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.44")
-    kapt("androidx.hilt:hilt-compiler:1.1.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -100,4 +99,18 @@ dependencies {
 
     // system UI Controller
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    kapt ("com.google.dagger:hilt-compiler:2.51.1")
+    kapt("androidx.hilt:hilt-compiler:1.1.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+
+
+
+    // Room
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.0")
+    implementation("androidx.room:room-paging:2.6.0")
+
 }

@@ -12,6 +12,6 @@ sealed class GetResult<T>(
     class Failure<T>(message: String,data: T? = null):GetResult<T>(data, message)
 
 
-    class Loading<T>(isLoading:Boolean):GetResult<T>(null)
+    class Loading<T>(val isLoading:Boolean):GetResult<T>(null)
 
 }

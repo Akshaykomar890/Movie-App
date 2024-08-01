@@ -2,7 +2,6 @@ package com.example.movieapp.moviesList.data.repository
 
 import coil.network.HttpException
 import com.example.movieapp.moviesList.data.local.movie.MovieDatabase
-import com.example.movieapp.moviesList.data.local.movie.MovieEntity
 import com.example.movieapp.moviesList.data.mapper.toMovie
 import com.example.movieapp.moviesList.data.mapper.toMovieEntity
 import com.example.movieapp.moviesList.data.remote.MovieApi
@@ -13,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
+
 
 
 class MovieRepositoryImp @Inject constructor(
@@ -77,7 +77,7 @@ class MovieRepositoryImp @Inject constructor(
                 }
             ))
             emit(GetResult.Loading(false))
-
+            return@flow
         }
     }
 

@@ -31,8 +31,7 @@ fun MovieDto.toMovieEntity(
         } catch (e: Exception) {
             "-1,-2"
         }
-        )
-
+    )
 }
 
 fun MovieEntity.toMovie(

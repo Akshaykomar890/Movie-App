@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import com.example.movieapp.moviesList.presentation.MovieListState
 import com.example.movieapp.moviesList.presentation.MovieListUIEvent
 import com.example.movieapp.moviesList.util.Category
+import com.example.movieapp.presentation.component.MovieItem
 
 
 @Composable
@@ -44,7 +45,7 @@ fun UpcomingMovieScreen(
         ) {
             items(movieState.upcomingMovieList.size){
                 index->
-                UpcomingMovieItem(movie = movieState.upcomingMovieList[index], navHostController = navHostController)
+                MovieItem(movie = movieState.upcomingMovieList[index], navHostController = navHostController)
 
                 Spacer(modifier = Modifier.height(16.dp))
 

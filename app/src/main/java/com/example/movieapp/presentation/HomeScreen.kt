@@ -85,11 +85,11 @@ fun HomeScreen(navHostController: NavHostController) {
         ){
           NavHost(navController = bottomNavController, startDestination = Screen.PopularMovieList.route ){
               composable(Screen.PopularMovieList.route){
-                  PopularMovieScreen(movieListState,bottomNavController,movieListViewModel::onEvent)
+                  PopularMovieScreen(movieListState,navHostController,movieListViewModel::onEvent)
               }
               composable(Screen.UpcomingMovieList.route){
                   UpcomingMovieScreen(movieState = movieListState,
-                      navHostController = bottomNavController,
+                      navHostController = navHostController,
                       movieListViewModel::onEvent)
 
                   }

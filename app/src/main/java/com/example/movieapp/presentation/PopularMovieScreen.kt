@@ -16,11 +16,12 @@ import androidx.navigation.NavHostController
 import com.example.movieapp.moviesList.presentation.MovieListState
 import com.example.movieapp.moviesList.presentation.MovieListUIEvent
 import com.example.movieapp.moviesList.util.Category
+import com.example.movieapp.presentation.component.MovieItem
 
 @Composable
 fun PopularMovieScreen(
     movieListState: MovieListState,
-    navHostController: NavHostController,
+    navController: NavHostController,
     onEvent:(MovieListUIEvent)->Unit
 ) {
         if (movieListState.popularMovieList.isEmpty()){
@@ -36,9 +37,9 @@ fun PopularMovieScreen(
             ) {
                 items(movieListState.popularMovieList.size){
                     index ->
-                    PopularMovieItem(
+                    MovieItem(
                         movie = movieListState.popularMovieList[index],
-                        navHostController =navHostController
+                        navHostController = navController
                     )
                     Spacer(modifier = Modifier.height(16.dp))
 

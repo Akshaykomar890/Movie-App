@@ -1,5 +1,4 @@
-package com.example.movieapp.presentation
-
+package com.example.movieapp.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -49,13 +47,13 @@ import com.example.movieapp.moviesList.util.Screen
 import com.example.movieapp.moviesList.util.getAverageColor
 
 @Composable
-fun UpcomingMovieItem(
-    movie:Movie,
-    navHostController: NavHostController,
+fun MovieItem(
+    movie: Movie,
+    navHostController: NavHostController
 ){
     val imageState = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(MovieApi.IMAGE_BASE_URL + movie.backdrop_path)
+            .data(MovieApi.IMAGE_BASE_URL+movie.poster_path)
             .size(Size.ORIGINAL)
             .build()
     ).state
@@ -65,6 +63,7 @@ fun UpcomingMovieItem(
         mutableStateOf(defaultColor)
     }
 
+
     Column(
         modifier = Modifier
             .wrapContentHeight()
@@ -73,19 +72,18 @@ fun UpcomingMovieItem(
             .clip(RoundedCornerShape(28.dp))
             .background(
                 Brush.verticalGradient(
-                    listOf(
+                    colors = listOf(
                         MaterialTheme.colorScheme.secondaryContainer,
                         dominantColor
                     )
                 )
             )
             .clickable {
-                navHostController.navigate(Screen.Details.route + "/${movie.id}")
+               navHostController.navigate(Screen.Details.route + "/${movie.id}")
             }
-
     ) {
         if (imageState is AsyncImagePainter.State.Error){
-            Box(
+            Box (
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(6.dp)
@@ -93,69 +91,57 @@ fun UpcomingMovieItem(
                     .clip(RoundedCornerShape(28.dp))
                     .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
-            ) {
-                Icon(modifier = Modifier.size(70.dp),imageVector = Icons.Rounded.ImageNotSupported, contentDescription = movie.title)
+            ){
+
+                Icon(modifier = Modifier.size(70.dp),imageVector = Icons.Rounded.ImageNotSupported, contentDescription = movie.title )
 
             }
         }
-
-        if(imageState is AsyncImagePainter.State.Success){
+        if (imageState is AsyncImagePainter.State.Success){
             dominantColor = getAverageColor(
                 imageBitmap = imageState.result.drawable.toBitmap().asImageBitmap()
             )
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(6.dp)
-                    .height(250.dp)
-                    .clip(RoundedCornerShape(28.dp)),
+            Image(modifier = Modifier
+                .fillMaxWidth()
+                .padding(6.dp)
+                .height(250.dp)
+                .clip(RoundedCornerShape(28.dp)),
                 painter = imageState.painter,
                 contentDescription = movie.title,
                 contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.height(6.dp))
+        }
 
+        Spacer(modifier = Modifier.height(6.dp))
+
+        Text(
+            modifier = Modifier.padding(start = 16.dp,end=8.dp),
+            text = movie.title,
+            color = Color.White,
+            fontSize = 15.sp,
+            maxLines = 1
+        )
+
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, bottom = 12.dp, top = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            RatingBar(
+                starsModifier = Modifier.size(18.dp),
+                rating = movie.vote_average/2
+            )
             Text(
-                modifier = Modifier.padding(start = 16.dp,end=8.dp),
-                text = movie.title,
-                color = Color.White,
-                fontSize = 15.sp,
+                modifier = Modifier.padding(start = 4.dp),
+                text = movie.vote_average.toString().take(3),
+                color = Color.LightGray,
+                fontSize = 14.sp,
                 maxLines = 1
             )
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, bottom = 12.dp, top = 4.dp)
-            ){
-                RatingBar(
-                    starsModifier = Modifier.size(18.dp),
-                    rating = movie.vote_average/2
-                )
-
-                Text(
-                    modifier = Modifier.padding(start = 20.dp),
-                    text = movie.vote_average.toString().take(3),
-                    color = Color.LightGray,
-                    fontSize = 14.sp,
-                    maxLines = 1
-                )
-            }
-
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

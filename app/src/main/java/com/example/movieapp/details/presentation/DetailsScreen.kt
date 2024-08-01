@@ -29,10 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -43,7 +45,6 @@ import com.example.movieapp.moviesList.util.RatingBar
 
 @Composable
 fun DetailsScreen(
-    backStackEntry: NavBackStackEntry
 ) {
 
     val detailsViewModel = hiltViewModel<DetailsViewModel>()
@@ -154,7 +155,7 @@ fun DetailsScreen(
                             .fillMaxWidth()
                     ) {
                         Text( modifier = Modifier
-                            .padding(start = 18.dp),
+                            .padding(start = 18.dp, top = 10.dp),
                             text = movie.title,
                             fontSize = 19.sp ,
                             fontWeight = FontWeight.SemiBold
@@ -164,16 +165,16 @@ fun DetailsScreen(
 
                         Row (
                             modifier = Modifier
-                                .padding(start = 16.dp)
+                                .padding(start = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ){
                             RatingBar(
                                 starsModifier = Modifier.size(18.dp),
                                 rating = movie.vote_average/2
                             )
                             Text(
-                                modifier = Modifier.padding(start = 4.dp),
+                                modifier = Modifier.padding(start = 8.dp),
                                 text = movie.vote_average.toString().take(3),
-                                color = Color.LightGray,
                                 fontSize = 14.sp,
                                 maxLines = 1
                             )
@@ -182,21 +183,21 @@ fun DetailsScreen(
 
                         Spacer(modifier = Modifier.height(12.dp))
                         Text( modifier = Modifier
-                            .padding(start = 16.dp),
+                            .padding(start = 10.dp),
                             text = "Language: "+movie.original_language
                         )
 
 
                         Spacer(modifier = Modifier.height(10.dp))
                         Text( modifier = Modifier
-                            .padding(start = 16.dp),
-                            text = "Release Date: "+movie.release_date
+                            .padding(start = 10.dp),
+                            text = "Release Date: "+movie.release_date,
                         )
 
                         Spacer(modifier = Modifier.height(10.dp))
                         Text( modifier = Modifier
-                            .padding(start = 16.dp),
-                            text = "Votes " +movie.vote_count
+                            .padding(start = 10.dp),
+                            text = "Votes: " +movie.vote_count
                         )
                 }
 
@@ -217,11 +218,11 @@ fun DetailsScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-
-
         detailsState.movie?.let {
             Text( modifier = Modifier
-                .padding(start = 18.dp),
+                .padding(20.dp)
+                .fillMaxWidth(),
+                textAlign = TextAlign.Justify,
                 text = it.overview,
                 fontSize = 16.sp ,
             )

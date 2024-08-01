@@ -46,7 +46,7 @@ class DetailsViewModel @Inject constructor(
                     }
                     is GetResult.Loading -> {
                         _detailsState.update {
-                            it.copy(isLoading = true)
+                            it.copy(isLoading = result.isLoading)
                         }
                     }
                     is GetResult.Success ->{

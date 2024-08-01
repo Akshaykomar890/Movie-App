@@ -36,7 +36,7 @@ fun PopularMovieScreen(
             ) {
                 items(movieListState.popularMovieList.size){
                     index ->
-                    MovieItem(
+                    PopularMovieItem(
                         movie = movieListState.popularMovieList[index],
                         navHostController =navHostController
                     )

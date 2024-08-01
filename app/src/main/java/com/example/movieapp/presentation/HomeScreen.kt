@@ -88,10 +88,12 @@ fun HomeScreen(navHostController: NavHostController) {
                   PopularMovieScreen(movieListState,bottomNavController,movieListViewModel::onEvent)
               }
               composable(Screen.UpcomingMovieList.route){
-                  //PopularScreen
-              }
-          }
+                  UpcomingMovieScreen(movieState = movieListState,
+                      navHostController = bottomNavController,
+                      movieListViewModel::onEvent)
 
+                  }
+              }
         }
 
     }
